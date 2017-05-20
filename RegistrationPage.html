@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Bootstrap Example</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.js"></script>
+<!--Style for form below-->
+<style type='text/css'>
+
+    #header {
+        margin-left: 20px;
+    }
+
+</style>
+
+</head>
+<body>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">Quizzes</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">My FAQs</a></li>
+            <li><a href="#">My Quizzes</a></li>
+        </ul>
+        <ul class="nav navbar-nav pull-right">
+            <li><a href="#" id="landing"></a></li>
+            <li><a href="#" id="logoffButton">Logoff</a></li>
+        </ul>
+
+    </div>
+</nav>
+
+<div class="banner">
+    <div class="jumbotron">
+        <h1 id="header" class="jumbotron">Home Page</h1>
+        <br />
+        <p id="landing"></p>
+    </div>
+</div>
+<hr />
+
+<script src="../Scripts/jquery-3.1.1.js"></script>
+<script src="../Scripts/bootstrap.js"></script>
+<script src="/Scripts/sabio.js"></script>
+<!--<script src="../Scripts/jquery.validate.js"></script>-->
+<script type="text/javascript">
+    sabio.page.startUp = function () {
+        console.log("page Started up!");
+
+        $("#logoffButton").on("click", sabio.page.handlers.logoffButton)
+        sabio.page.handlers.getUserData(); //on startup it grabs the userdata
+    };
+
+    sabio.page.handlers.submitSuccess = function () {
+        $("#landing").text("Successfully Logged out!");
+        /*window.location.href = "http://localhost:2752/Content/login.html"; //placed down here instead of below login click, so that when ajax is successful it will run.*/
+        console.log("Ajax Success");
+    };
+
+    //success callback from getUserData function. Grabs response(api/users/ids) and searches "api/profiles/{personId}" for response.item.personId
+    sabio.page.handlers.getUserDataSuccess = function (response) {
+        console.log("You have the UserData!");
+        var url = "https://pacoima-ypi.azurewebsites.net/api/profiles/" + response.item.personId
+
+        var settings = {
+
+            cache: false
+            , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
+            //, data:
+            , async: false
+            , dataType: "json"
+            , success: sabio.page.handlers.getUserPersonalId
+            , error: sabio.page.handlers.ajaxError
+            , type: "GET"
+            , xhrFields: {
+                withCredentials: true
+            }
+        };0
+        $.ajax(url, settings);
+    };
+
+    //general ajax error used by all of the page's ajax calls
+    sabio.page.handlers.ajaxError = function (response) {
+        //$("#landing").text(JSON.stringify(response));    // alternate response
+        $("#landing").on(response.responseJSON.error[0])
+        console.log("Ajax Error, are you logged in?");
+    };
+
+    //logs user off when the button is clicked, and reroutes to login page.
+    sabio.page.handlers.logoffButton = function (event) {
+        event.preventDefault();
+        console.log("submit button clicked");
+
+        var url = "https://pacoima-ypi.azurewebsites.net/api/users/logout/"
+
+        var settings = {
+
+            cache: false
+            , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
+            //, data:
+            , async: false
+            , dataType: "json"
+            , success: sabio.page.handlers.submitSuccess
+            , error: sabio.page.handlers.ajaxError
+            , type: "GET"
+            , xhrFields: {
+              withCredentials: true
+            }
+        };
+        $.ajax(url, settings);
+    };
+
+    //on startup the getUserData() function grabs user's data from "api/users/ids"
+    sabio.page.handlers.getUserData = function () {
+        console.log("ready to get user data!");
+
+        var url = "https://pacoima-ypi.azurewebsites.net/api/users/ids"
+        //var url = "https://pacoima-ypi.azurewebsites.net/api/profiles/{personId}"
+
+        var settings = {
+
+            cache: false
+            , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
+            , dataType: "json"
+            , success: sabio.page.handlers.getUserDataSuccess
+            , error: sabio.page.handlers.ajaxError
+            , type: "GET"
+            , xhrFields: {
+                withCredentials: true
+            }
+        };
+        $.ajax(url, settings);
+        console.log("userID found?");
+    };
+
+    //last step, grabbed the response from api/users/{personalId} and placed into "#landing"
+    sabio.page.handlers.getUserPersonalId = function (response) {
+        $(response).serialize(response)
+        $("#landing").text("Hello, " + response.item.email); //response is item.response.presonalId converted from a number to the actual personId or their name.
+        console.log("Received the user's personal ID!");
+    };
+
+</script>
+</body>
+</html>
