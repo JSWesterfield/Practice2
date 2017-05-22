@@ -116,15 +116,15 @@
                 <!-- FAQ Dropdown Menu 2-->
                 <div class="form-group">
                     <div class="col-xs-10">
-                    <label class="control-label col-sm-2" for="categoryId">FAQ CategoryID</label>
+                    <label class="control-label col-sm-2" for="faqCategoryId">FAQ faqCategoryId</label>
                     </div>
                     <div class="col-xs-10">
-                        <select id="categoryId" name="categoryId" class="form-control input-lg">
+                        <select id="faqCategoryId" name="faqCategoryId" class="form-control input-lg">
                            <option value="0" >Select One</option>
-                           <option value="1">CategoryID 1</option>
-                           <option value="2">CategoryID 2</option>
-                           <option value="3">CategoryID 3</option>
-                           <option value="4">CategoryID 4</option>
+                           <option value="1">faqCategoryId 1</option>
+                           <option value="2">faqCategoryId 2</option>
+                           <option value="3">faqCategoryId 3</option>
+                           <option value="4">faqCategoryId 4</option>
                          </select>
                      </div>
                   </div>
@@ -172,13 +172,13 @@
             $("#submitButton").on("click", sabio.page.handlers.submitButton)
         };
 
-        //success callback
+        //success callback function
         sabio.page.handlers.submitSuccess = function () {
             $("#success").text("Successfully Added FAQ")
             console.log("Ajax Success!");
         };
 
-        //error/failure callback, make this the general
+        //error callback function, make this the general
         sabio.page.handlers.ajaxError = function (response) {
             $("#landing").on(response.responseJSON.error[0])
             console.log("Ajax error");
@@ -192,10 +192,10 @@
 
             $("#faq-form").validate({
                 errorClass: "my-error-class"
-                , validClass: "my-vlaid-class"
+                , validClass: "my-valid-class"
 
                 , rules: {
-                    categoryId: {
+                    faqCategoryId: {
                         min: 1
                     }
                     , question: {
@@ -204,9 +204,10 @@
                     , answer: {
                         required: true
                     }
+                    , displayOrder: 1
                 }
                 , messages: {
-                    categoryId: "Please select a option"
+                    faqCategoryId: "Please select an option"
                 }
             });
 
@@ -219,7 +220,7 @@
                 if ($("#faq-form").valid()) {
                     //create a object called userInfo and place input .val()'s as props inside
                     var userInfo = {
-                        categoryId: $("#categoryId").val()
+                        faqCategoryId: $("#faqCategoryId").val()
                         , question: $("#question").val()
                         , answer: $("#answer").val()
                     };
@@ -248,7 +249,7 @@
                     console.log("form error, something is wrong with the form, please correct form");
                 };
                 //reset form
-                $("faq-form")[0].reset();
+                //$("#faq-form")[0].reset();
                 console.log("form reset");
 
             };
