@@ -1,152 +1,243 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Bootstrap Example</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.SPServices/2014.02/jquery.SPServices-2014.02.js"></script>
-<!--Style for form below-->
-<style type='text/css'>
+    <title>Bootstrap Example Registration Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!--Style for form below-->
+    <style type='text/css'>   
+       label {
+         display: inline-block;
+         width: 140px;
+         text-align: right;
+         padding-right: 10px;
+       }
+       input {
+          display: inline-block;
+          width: 30px;
+          text-align: left;
+          margin-bottom: 3px;
+       }
 
-    #header {
-        margin-left: 20px;
-    }
+       .form-control {
+           padding-left: 10px;
+       }
 
-</style>
+       button {
+         display: inline-block;
+         width: 90px;
+         text-align: center;
+         padding-left: 1000px;
+         margin-left: 210px;
+       }
+
+       #landing {
+           color: red;
+       }
+
+       #header, #subheader  {
+           margin-left: 20px;
+       }
+
+       .my-error-class {
+           color:#FF0000;  /* red */
+       }
+        
+       .my-valid-class {
+           color:#000000; /* black */
+       }
+    </style>
 
 </head>
 <body>
-<nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">Quizzes</a>
+
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Application Name</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="#">Register</a></li>
+                <li><a href="#">Login</a></li>
+            </ul> 
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="#">Home</a></li>
-            <li><a href="#">My FAQs</a></li>
-            <li><a href="#">My Quizzes</a></li>
-        </ul>
-        <ul class="nav navbar-nav pull-right">
-            <li><a href="#" id="landing"></a></li>
-            <li><a href="#" id="logoffButton">Logoff</a></li>
-        </ul>
+    </nav>
 
+    <h1 id="header">Register.</h1>
+    <p id="subheader">Create an account</p>
+    <hr />
+
+    <!-- Beginning of Form-->
+    <!-- we will parse the form with jquery(below) before we submit-->
+    <div id="landing" class="hide"> <!--Did we color the div red and not the words? have background pink and words red.<!--we hide the form and attach an id to the div to be able to target this element-->
+        You have errors</br><br />
+        <div id="valerrors"></div>
     </div>
-</nav>
+    
+    <form align="left" role="form" id="register-form" class="form-horizontal" action="" method="post" novalidate="novalidate">
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="firstName">First Name </label>
+            <div class="col-xs-4">
+                <input type="text" name="firstName" id="firstName" class="form-control input-lg" autofocus>
+            </div>
+        </div>
 
-<div class="banner">
-    <div class="jumbotron">
-        <h1 id="header" class="jumbotron">Home Page</h1>
-        <br />
-        <p id="landing"></p>
-    </div>
-</div>
-<hr />
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="lastName">Last Name </label>
+            <div class="col-xs-4">
+                <input type="text" name="lastName" id="lastName" class="form-control input-lg" >
+            </div>
+        </div>
 
-<script src="../Scripts/jquery-3.1.1.js"></script>
-<script src="../Scripts/bootstrap.js"></script>
-<script src="/Scripts/sabio.js"></script>
-<!--<script src="../Scripts/jquery.validate.js"></script>-->
-<script type="text/javascript">
-    sabio.page.startUp = function () {
-        console.log("page Started up!");
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="email">Email </label>
+            <div  class="col-xs-4">
+                <input name="email" class="form-control input-lg" type="email" id="email">
+            </div>
+         </div>
 
-        $("#logoffButton").on("click", sabio.page.handlers.logoffButton)
-        sabio.page.handlers.getUserData(); //on startup it grabs the userdata
-    };
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="password">Password </label>
+            <div class="col-xs-4">
+                <input name="password" class="form-control input-lg" type="password" id="password">
+            </div>
+        </div>
 
-    sabio.page.handlers.submitSuccess = function () {
-        $("#landing").text("Successfully Logged out!");
-        /*window.location.href = "http://localhost:2752/Content/login.html"; //placed down here instead of below login click, so that when ajax is successful it will run.*/
-        console.log("Ajax Success");
-    };
+        <div class="form-group">
+            <label class="col-sm-2 control-label" for="confirmPassword">Confirm Password </label>
+            <div class="col-xs-4">
+                <input name="confirmPassword" id="confirmPassword" class="form-control input-lg" type="password">
+            </div>
 
-    //success callback from getUserData function. Grabs response(api/users/ids) and searches "api/profiles/{personId}" for response.item.personId
-    sabio.page.handlers.getUserDataSuccess = function (response) {
-        console.log("You have the UserData!");
-        var url = "https://pacoima-ypi.azurewebsites.net/api/profiles/" + response.item.personId
+        </div>
 
-        var settings = {
+        <button type="submit" name="register" class="btn btn-default" id="submitButton" value="register" />Register</button>
+    </form>
+ 
+    <!-- End of form-->
+    <!-- b of body section is where SCRIPT goes -->
+    <script src="../Scripts/jquery-3.1.1.js"></script>
+    <script src="../Scripts/bootstrap.js"></script>
+    <script src="/Scripts/sabio.js"></script>
+    <script src="../Scripts/jquery.validate.js"></script>
+    <script type="text/javascript">
+        sabio.page.startUp = function () {
+            console.log("page Started up!");
 
-            cache: false
-            , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
-            //, data:
-            , async: false
-            , dataType: "json"
-            , success: sabio.page.handlers.getUserPersonalId
-            , error: sabio.page.handlers.ajaxError
-            , type: "GET"
-            , xhrFields: {
-                withCredentials: true
-            }
-        };0
-        $.ajax(url, settings);
-    };
-
-    //general ajax error used by all of the page's ajax calls
-    sabio.page.handlers.ajaxError = function (response) {
-        //$("#landing").text(JSON.stringify(response));    // alternate response
-        $("#landing").on(response.responseJSON.error[0])
-        console.log("Ajax Error, are you logged in?");
-    };
-
-    //logs user off when the button is clicked, and reroutes to login page.
-    sabio.page.handlers.logoffButton = function (event) {
-        event.preventDefault();
-        console.log("submit button clicked");
-
-        var url = "https://pacoima-ypi.azurewebsites.net/api/users/logout/"
-
-        var settings = {
-
-            cache: false
-            , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
-            //, data:
-            , async: false
-            , dataType: "json"
-            , success: sabio.page.handlers.submitSuccess
-            , error: sabio.page.handlers.ajaxError
-            , type: "GET"
-            , xhrFields: {
-              withCredentials: true
-            }
+            sabio.page.handlers.initializeValidation();
+            $("#submitButton").on('click', sabio.page.handlers.submitButton) //must create a submitButton function
         };
-        $.ajax(url, settings);
-    };
 
-    //on startup the getUserData() function grabs user's data from "api/users/ids"
-    sabio.page.handlers.getUserData = function () {
-        console.log("ready to get user data!");
-
-        var url = "https://pacoima-ypi.azurewebsites.net/api/users/ids"
-        //var url = "https://pacoima-ypi.azurewebsites.net/api/profiles/{personId}"
-
-        var settings = {
-
-            cache: false
-            , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
-            , dataType: "json"
-            , success: sabio.page.handlers.getUserDataSuccess
-            , error: sabio.page.handlers.ajaxError
-            , type: "GET"
-            , xhrFields: {
-                withCredentials: true
-            }
+        //step 1) create a handler function for submit success
+        sabio.page.handlers.submitSuccess = function () {
+            $("#landing").text("Successfully Registered!")
+            console.log("Ajax Success")
         };
-        $.ajax(url, settings);
-        console.log("userID found?");
-    };
+         
+        //step 2) create a handler function for submit error
+        sabio.page.handlers.submitError = function (response) {
+             $("#landing").text(response.responseJSON.error[0])
+             console.log("Ajax Error")
+        };
 
-    //last step, grabbed the response from api/users/{personalId} and placed into "#landing"
-    sabio.page.handlers.getUserPersonalId = function (response) {
-        $(response).serialize(response)
-        $("#landing").text("Hello, " + response.item.email); //response is item.response.presonalId converted from a number to the actual personId or their name.
-        console.log("Received the user's personal ID!");
-    };
+        //step 3) Create a test handler function for your value
+        sabio.page.handlers.test = function (value) {
+             if (/\d/.test(value)) {
+                return true;
+             }
+             return false;
+        }
 
-</script>
+        //step 4) Create a handler function to begin validation
+        sabio.page.handlers.initializeValidation = function () {
+            jQuery.validator.setDefaults({       //the debug settings for validate.js has to be turned on. 
+                debug: true
+            });
+
+            jQuery.validator.addMethod("hasDigit", sabio.page.handlers.test, "Must include at least 1 digit");
+
+            $("#register-form").validate({
+                errorClass: "my-error-class",
+                validClass: "my-valid-class",
+
+                // here we specify the validation the rules for our form
+                rules: {
+                    firstName: {
+                        required: true
+                    }
+                    , lastName: {
+                        required: true
+                    }
+                    , email: {
+                        required: true
+                    }
+                    , password: {
+                        required: true
+                        , minlength: 6
+                        , hasDigit: true
+                    }
+                    , confirmPassword: {
+                        required: true
+                        , minlength: 6
+                        , equalTo: "#password"
+                    }
+                }
+            });
+
+            //step 5) create a handler function for our submit button, step 6 is WITHIN step 5.
+            sabio.page.handlers.submitButton = function (event) {
+                event.preventDefault();
+                console.log("submit button clicked");
+
+                //we use the validate.js method .valid() to test validity.
+                if ($("#register-form").valid()) {
+                    //create a object called userInfo and place input .val()'s as props inside
+                    var userInfo = {
+                        firstName: $("#firstName").val()
+                        , lastName: $("#lastName").val()
+                        , email: $("#email").val()
+                        , password: $("#confirmPassword").val()
+                    };
+
+                    //step 6.) we create a variable called 'url' for our API location to be placed within our 'POST' ajax call. 
+                    var url = "http://pacoima-ypi.azurewebsites.net/api/users/register/employer/"
+                    //we create a settings object to store our success & error function, and define our ajax call
+                    var settings = {
+
+                        cache: false
+                        , contentType: "application/x-www-form-urlencoded; charset-UTF-8"
+                        , data: userInfo //we place our .val()'s from user input data from the form
+                        , dataType: "json"  //we define our data type
+                        , success: sabio.page.handlers.submitSuccess    //our error handler function
+                        , error: sabio.page.handlers.submitError    //our error handler function
+                        , type: "POST"
+                        , xhrFields: {
+                            withCredentials: true //we bypass CORS, by not propogating the withCredentials property to the native XHR. The CORS request requiring it would ignore this flag, when this prop is set to true
+                        }
+                    };
+
+                    $.ajax(url, settings);  //we create the ajax call here and place the 'url' & 'settings' `
+                }
+                else {
+                    console.log("form error, something is wrong with the form, please correct form");
+                }
+
+                //reset form, won't be reseting form w
+                //$('#register-form')[0].reset();
+            };
+
+            /**NOTE: LEAVE Validate.JS script BEFORE the closing <script> tag **/
+        }
+    </script>
+    <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/additional-methods.js"></script>
+
 </body>
 </html>
