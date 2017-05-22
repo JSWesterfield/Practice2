@@ -1,14 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<<<<<<< HEAD
     <title>Bootstrap Example Registeration Page</title>
+=======
+    <title>Bootstrap Example Registration Page</title>
+>>>>>>> origin/master
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!--Style for form below-->
+<<<<<<< HEAD
     <style type='text/css'>
+=======
+    <style type='text/css'>   
+>>>>>>> origin/master
        label {
          display: inline-block;
          width: 140px;
@@ -45,7 +53,11 @@
        .my-error-class {
            color:#FF0000;  /* red */
        }
+<<<<<<< HEAD
 
+=======
+        
+>>>>>>> origin/master
        .my-valid-class {
            color:#000000; /* black */
        }
@@ -67,7 +79,11 @@
             <ul class="nav navbar-nav pull-right">
                 <li><a href="#">Register</a></li>
                 <li><a href="#">Login</a></li>
+<<<<<<< HEAD
             </ul>
+=======
+            </ul> 
+>>>>>>> origin/master
         </div>
     </nav>
 
@@ -81,7 +97,11 @@
         You have errors</br><br />
         <div id="valerrors"></div>
     </div>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> origin/master
     <form align="left" role="form" id="register-form" class="form-horizontal" action="" method="post" novalidate="novalidate">
         <div class="form-group">
             <label class="col-sm-2 control-label" for="firstName">First Name </label>
@@ -121,7 +141,11 @@
 
         <button type="submit" name="register" class="btn btn-default" id="submitButton" value="register" />Register</button>
     </form>
+<<<<<<< HEAD
 
+=======
+ 
+>>>>>>> origin/master
     <!-- End of form-->
     <!-- b of body section is where SCRIPT goes -->
     <script src="../Scripts/jquery-3.1.1.js"></script>
@@ -134,6 +158,7 @@
 
             sabio.page.handlers.initializeValidation();
             $("#submitButton").on('click', sabio.page.handlers.submitButton) //must create a submitButton function
+<<<<<<< HEAD
         };
 
         //step 1) create a handler function for submit success
@@ -147,6 +172,21 @@
              $("#landing").text(response.responseJSON.error[0])
              console.log("Ajax Error")
         };
+=======
+        };
+
+        //step 1) create a handler function for submit success
+        sabio.page.handlers.submitSuccess = function () {
+            $("#landing").text("Successfully Registered!")
+            console.log("Ajax Success")
+        };
+         
+        //step 2) create a handler function for submit error
+        sabio.page.handlers.submitError = function (response) {
+             $("#landing").text(response.responseJSON.error[0])
+             console.log("Ajax Error")
+        };
+>>>>>>> origin/master
 
         //step 3) Create a test handler function for your value
         sabio.page.handlers.test = function (value) {
@@ -158,7 +198,11 @@
 
         //step 4) Create a handler function to begin validation
         sabio.page.handlers.initializeValidation = function () {
+<<<<<<< HEAD
             jQuery.validator.setDefaults({       //the debug settings for validate.js has to be turned on.
+=======
+            jQuery.validator.setDefaults({       //the debug settings for validate.js has to be turned on. 
+>>>>>>> origin/master
                 debug: true
             });
 
@@ -207,7 +251,11 @@
                         , password: $("#confirmPassword").val()
                     };
 
+<<<<<<< HEAD
                     //step 6.) we create a variable called 'url' for our API location to be placed within our 'POST' ajax call.
+=======
+                    //step 6.) we create a variable called 'url' for our API location to be placed within our 'POST' ajax call. 
+>>>>>>> origin/master
                     var url = "http://pacoima-ypi.azurewebsites.net/api/users/register/employer/"
                     //we create a settings object to store our success & error function, and define our ajax call
                     var settings = {
