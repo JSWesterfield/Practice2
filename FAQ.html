@@ -85,6 +85,9 @@
             margin-top: 20px;
             padding-right: 10px;
         }
+        #success {
+            margin-left: 100px;
+        }
 
         #landing {
             color: red;
@@ -121,10 +124,10 @@
                     <div class="col-xs-10">
                         <select id="faqCategoryId" name="faqCategoryId" class="form-control input-lg">
                            <option value="0" >Select One</option>
-                           <option value="1">faqCategoryId 1</option>
-                           <option value="2">faqCategoryId 2</option>
-                           <option value="3">faqCategoryId 3</option>
-                           <option value="4">faqCategoryId 4</option>
+                           <option value="1">Category Id 1</option>
+                           <option value="2">Category Id 2</option>
+                           <option value="3">Category Id 3</option>
+                           <option value="4">Category Id 4</option>
                          </select>
                      </div>
                   </div>
@@ -150,6 +153,9 @@
                         <div id="FaqButton">
                             <button type="submit" id="submitButton" name="addFaqButton" class="btn btn-primary btn-lg" value="register" />Add FAQ</button>
                         </div>
+
+                        <div ></div><input type="checkbox" name="displayOrder" id="displayOrder" value="1" checked/><div>
+                            
                     </div>
                 </div>
             </form>
@@ -166,6 +172,7 @@
     <script src="../Scripts/jquery.validate.js"></script>
     <script type="text/javascript">
         sabio.page.startUp = function () {
+            $("#displayOrder").hide();
             console.log("page started up!");
 
             sabio.page.handlers.initializeValidation();
@@ -188,7 +195,7 @@
         sabio.page.handlers.initializeValidation = function () {
             jQuery.validator.setDefaults({
                 debug: true
-            });
+            })
 
             $("#faq-form").validate({
                 errorClass: "my-error-class"
@@ -224,6 +231,7 @@
                         faqCategoryId: $("#faqCategoryId").val()
                         , question: $("#question").val()
                         , answer: $("#answer").val()
+                        , displayOrder: $("#displayOrder").val()
                     };
 
                     //we create a variable for our url to be placed within our 'POST' ajax call.
@@ -240,7 +248,7 @@
                         , error: sabio.page.handlers.submitError    //our error handler function
                         , type: "POST"
                         , xhrFields: {
-                            withCredientials: true //we bypass CORS, by not propogating the withCredentials property to the native XHR. The CORS request requiring it would ignore this flag, when this prop is set to true
+                            withCredentials: true 
                         }
                     };
 
