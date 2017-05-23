@@ -1,9 +1,22 @@
-@model Sabio.Fundamentals.Models.FAQViewModel
+@model int?
 
 @{
     Layout = ""; //removes the default layout inheritance in that view
 }
-
+<script>
+@if (Model != null)
+{
+    <text>
+        sabio.page.faqId = @Model;
+    </text>
+}
+else
+{
+    <text>
+        sabio.page.faqId = null;
+    </text>
+}
+</script>
 <!DOCTYPE html>
 
 <html>
