@@ -10,7 +10,7 @@ using Stark.Web.Services;
 using Stark.Web.Models;
 using Fundamentals.Models.Requests;
 
-namespace Sabio.Web.Services
+namespace Stark.Web.Services
 {
     public class FeaturesService : BaseService
     {
@@ -34,15 +34,8 @@ namespace Sabio.Web.Services
 
                     Feature feature = new Feature();
 
-                    // fill in the properties of our domain model in the same order that they're listed in the select clause.
-                    //
-                    // reader.Get{DataType}({index of the column you want})
-
-                    //testEmployee.EmployeeId = reader.GetInt32(0);
-                    //testEmployee.LastName = reader.GetString(1);
-                    //testEmployee.FirstName = reader.GetString(2);
-                    //testEmployee.Title = reader.GetString(3);
-
+                    // filled in the properties of our domain model in the same order that they're listed in the select clause.
+\
                     int startingIndex = 0;
                     feature.Id = reader.GetInt32(startingIndex++);
                     feature.Name = reader.GetString(startingIndex++);
@@ -72,28 +65,8 @@ namespace Sabio.Web.Services
 
                 return list;
             }
-            // The Insert proc is much different than the SelectAll proc. First and foremost, it doesn't do a SELECT, so we don't use
-            // DataProvider.ExecuteCmd. Also, the proc accepts a variety of parameters so we need to actually put some code into our
-            // inputMapper callback function. Lastly, one of the parameters is an OUTPUT parameter (which enables the proc to send some
-            // data back to C#) - this means we need to setup a returnMapper function. 
-            // Step 1: create a request model. See FeatureCreateRequest.cs.
-
-            // Step 2: setup your method. Create method will return and "int" in order to pass whatever id generated in SQL server to 
-            // the calling code. we also require a parameter named "model" of our request model type:
-            //          public int Create(TestEmployeeCreateRequest model) 
-            //          {
-            //              
-            //          }
-
-            // Step 3: declare a variable to hold the id value and iniitalize it to 0. add a "return" statement for this variable.
-            // Step 4: just above the return statement, make the call to DataProvider.ExecuteNonQuery(). shis doesn't have a
-            // resultMapper, it has a returnMapper.
-            //          DataProvider.ExecuteNonQuery(GetConnection,
-            //              {name of my proc},
-            //              inputMapper,
-            //              returnMapper);
-            // Step 5: implement inputMapper and returnMapper (see below).
-            public static int Create(FeatureCreateRequest model)
+         
+            public static int Create(FeaturesCreateRequest model)
         {
             int id = 0;
 
@@ -148,10 +121,5 @@ namespace Sabio.Web.Services
 
         //}
 
-        ////GETS Don't need a request model in the class method(GETALL) parameter as an argument.
-        //public static List<FeaturesService> GetAll()
-        //{
-
-        //}
      }
 }
