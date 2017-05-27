@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using Fundamentals.Models.Requests;
-using Fundamentals.Services;
+using Stark.Fundamentals.Models.Requests;
+using Stark.Fundamentals.Services;
 using System.Web.Http;
-using Web.Models.Responses;
+using Stark.Web.Models.Responses;
 
-namespace Fundamentals.Controllers.api
+namespace Stark.Fundamentals.Controllers.api
 {
     [RoutePrefix("api/features")]
     public class FeaturesApiController : ApiController
@@ -17,7 +17,7 @@ namespace Fundamentals.Controllers.api
 
         //CREATE        [INSERT/POST]
         [Route(), HttpPost]
-        public HttpResponseMessage Add(FeatureAddRequest model) // "public method named "Add" that returns an HtttpResponseMessage, that takes one parameter named "model" of type FeatureAddRequest"
+        public HttpResponseMessage Add(FeaturesAddRequest model) // "public method named "Add" that returns an HtttpResponseMessage, that takes one parameter named "model" of type FeatureAddRequest"
         {
             if (!ModelState.IsValid)
             {
@@ -32,7 +32,7 @@ namespace Fundamentals.Controllers.api
 
         //UPDATE        [UPDATE/PUT]
         [Route("{id:int}"), HttpPut]
-        public HttpResponseMessage Update(FeatureUpdateRequest model)
+        public HttpResponseMessage Update(FeaturesUpdateRequest model)
         {
             if (!ModelState.IsValid)
             {
@@ -51,7 +51,7 @@ namespace Fundamentals.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            ItemsResponse<MeetUpEvent> resp = new ItemsResponse<MeetUpEvent>();
+            ItemsResponse<Features> resp = new ItemsResponse<Features>();
             resp.Items = FeaturesService.GetAll();
 
             return Request.CreateResponse(HttpStatusCode.OK, resp);
@@ -68,7 +68,7 @@ namespace Fundamentals.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            ItemsResponse<MeetUpEvent> resp = new ItemsResponse<MeetUpEvent>();
+            ItemsResponse<Features> resp = new ItemsResponse<Features>();
             resp.Items = FeaturesService.GetAll();
 
             return Request.CreateResponse(HttpStatusCode.OK, resp);
@@ -85,7 +85,7 @@ namespace Fundamentals.Controllers.api
                 return Request.CreateErrorResponse(HttpStatusCode.BadRequest, ModelState);
             }
 
-            ItemsResponse<MeetUpEvent> resp = new ItemsResponse<MeetUpEvent>();
+            ItemsResponse<Features> resp = new ItemsResponse<Features>();
             resp.Items = FeaturesService.Delete();
 
             return Request.CreateResponse(HttpStatusCode.OK, resp);

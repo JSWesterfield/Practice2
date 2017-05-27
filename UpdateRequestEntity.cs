@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Sabio.Fundamentals.Models.Requests
+namespace Stark.Fundamentals.Models.Requests
 {
-    public class FeatureUpdateRequest : FeatureAddRequest
+    public class FeaturesUpdateRequest : FeaturesAddRequest
     {
         [Required]
 
