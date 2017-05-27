@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Sabio.Fundamentals.Models.Requests
+namespace Stack.Fundamentals.Models.Requests
 {
-    public class FeatureAddRequest
+    public class FeaturesAddRequest
     {
         [Required]
         [MaxLength(20)]
