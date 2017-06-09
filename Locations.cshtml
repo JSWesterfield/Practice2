@@ -1,0 +1,56 @@
+@{
+    ViewBag.Title = "Page Title";
+    Layout = "~/Views/Shared/_LayoutThemed.cshtml";
+}
+
+@section styles {
+    @*<link rel="stylesheet" href="..."/>*@
+
+    @*<style></style>*@
+}
+
+<article class="article gradient-2">
+    <h2 class="title container text-center">Art Find</h2>
+    <section>
+        <div class="section-inner container text-center">
+            <div class="row">
+                <div class="col-md-10 col-sm-12 col-xs-12 col-md-push-1 col-sm-push-0 col-xs-push-0">
+                    <h3 class="subtitle">Choose A Location</h3>
+                    <div class="content">
+                        <p></p>
+                    </div><!--//content-->
+                </div>
+            </div><!--//row-->
+        </div>
+    </section>
+</article>
+
+@section scripts {
+        <script src="../Scripts/stark/services/stark.services.locations.js"></script>
+        <script type="text/javascript">
+            stark.page.startUp = function () {
+                console.log("page Started Up!");
+
+                stark.services.locations.getAll(stark.page.handlers.onSuccess, stark.page.handlers.onError); 
+            }
+
+            // onSuccess
+            stark.page.handlers.onSuccess = function (response) {
+                console.log("success!");
+                //loop for onSuccess response.items iteration and print
+                for (var i = 0; i < response.items.length; i++) {
+                    var element = $('<p><a>' + response.items[i].name + '</a></p>');
+                    $('.content').append(element);
+                    var url = "/maps/chooser?locationId=" + response.items[i].id;
+                    var aTag = element.find('a').attr("href", url);
+                }
+                console.log("A complete success!");
+            }
+
+            // onError
+            stark.page.handlers.onError = function () {
+                console.log("error!");
+            };
+
+        </script>
+}
